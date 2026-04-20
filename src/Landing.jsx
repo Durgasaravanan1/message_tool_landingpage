@@ -1081,6 +1081,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useInView, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import image from "../src/assets/logo.jpeg"
 
 // ─── Brand Colors (Updated Palette) ──────────────────────────────────────────
 // Primary Dark Navy: #133f85
@@ -1137,6 +1138,7 @@ function Badge({ children, color = "teal" }) {
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", h);
@@ -1144,44 +1146,113 @@ function Navbar() {
   }, []);
 
   return (
-    <motion.nav initial={{ y: -70 }} animate={{ y: 0 }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-white/90 backdrop-blur-2xl shadow-sm border-b border-[#96ddd8]" : "bg-transparent"}`}>
+    <motion.nav
+      initial={{ y: -70 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-white/90 backdrop-blur-2xl shadow-sm border-b border-[#96ddd8]"
+          : "bg-transparent"
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-[#133f85] to-[#3dcdc5] flex items-center justify-center shadow-lg shadow-[#96ddd8]">
-            <span className="text-white font-black text-xs sm:text-sm">W</span>
-          </div>
-          <span className="font-black text-base sm:text-lg text-slate-800">WYN <span className="text-[#3dcdc5]">Reach</span></span>
-        </div>
+        
+        {/* LOGO */}
+       <div className="flex items-center gap-3">
+  
+  {/* ✅ BIGGER LOGO */}
+  <img
+    src={image}
+    alt="WYN Logo"
+    className="h-14 sm:h-16 w-auto object-contain"
+  />
+
+  {/* ✅ TEXT RIGHT SIDE */}
+  <span className="font-black text-lg sm:text-xl text-slate-800">
+    WYN <span className="text-[#3dcdc5]">Reach</span>
+  </span>
+
+</div>
+
+        {/* MENU */}
         <div className="hidden md:flex items-center gap-6 lg:gap-8">
           {["Features", "How It Works", "Use Cases", "Pricing", "FAQ"].map((l) => (
-            <a key={l} href={`#${l.toLowerCase().replace(/ /g, "-")}`} className="text-slate-500 hover:text-[#133f85] text-sm font-medium transition-colors">{l}</a>
+            <a
+              key={l}
+              href={`#${l.toLowerCase().replace(/ /g, "-")}`}
+              className="text-slate-500 hover:text-[#133f85] text-sm font-medium transition-colors"
+            >
+              {l}
+            </a>
           ))}
         </div>
+
+        {/* BUTTONS */}
         <div className="hidden md:flex items-center gap-3">
-          <a href="#pricing" className="text-slate-600 hover:text-[#133f85] text-sm font-medium px-4 py-2 transition-colors">Login</a>
-          <motion.a href="#pricing" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
-            className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#133f85] to-[#3dcdc5] text-white text-sm font-bold shadow-lg shadow-[#96ddd8]">
+          <a
+            href="#pricing"
+            className="text-slate-600 hover:text-[#133f85] text-sm font-medium px-4 py-2 transition-colors"
+          >
+            Login
+          </a>
+
+          <motion.a
+            href="#pricing"
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.97 }}
+            className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#133f85] to-[#3dcdc5] text-white text-sm font-bold shadow-lg shadow-[#96ddd8]"
+          >
             Sign Up →
           </motion.a>
         </div>
-        <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden text-slate-700 p-2">
+
+        {/* MOBILE MENU BUTTON */}
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="md:hidden text-slate-700 p-2"
+        >
           <div className="w-5 space-y-1.5">
-            <motion.span animate={menuOpen ? { rotate: 45, y: 8 } : {}} className="block h-0.5 bg-slate-700 rounded transition-all" />
-            <motion.span animate={menuOpen ? { opacity: 0 } : {}} className="block h-0.5 bg-slate-700 rounded transition-all" />
-            <motion.span animate={menuOpen ? { rotate: -45, y: -8 } : {}} className="block h-0.5 bg-slate-700 rounded transition-all" />
+            <motion.span
+              animate={menuOpen ? { rotate: 45, y: 8 } : {}}
+              className="block h-0.5 bg-slate-700 rounded"
+            />
+            <motion.span
+              animate={menuOpen ? { opacity: 0 } : {}}
+              className="block h-0.5 bg-slate-700 rounded"
+            />
+            <motion.span
+              animate={menuOpen ? { rotate: -45, y: -8 } : {}}
+              className="block h-0.5 bg-slate-700 rounded"
+            />
           </div>
         </button>
       </div>
+
+      {/* MOBILE MENU */}
       <AnimatePresence>
         {menuOpen && (
-          <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white/95 backdrop-blur-2xl border-b border-[#96ddd8] px-4 pb-4">
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden bg-white/95 backdrop-blur-2xl border-b border-[#96ddd8] px-4 pb-4"
+          >
             {["Features", "How It Works", "Use Cases", "Pricing", "FAQ"].map((l) => (
-              <a key={l} href={`#${l.toLowerCase().replace(/ /g, "-")}`} onClick={() => setMenuOpen(false)}
-                className="block py-3 text-slate-600 hover:text-[#133f85] text-sm font-medium border-b border-[#e8f8fb]">{l}</a>
+              <a
+                key={l}
+                href={`#${l.toLowerCase().replace(/ /g, "-")}`}
+                onClick={() => setMenuOpen(false)}
+                className="block py-3 text-slate-600 hover:text-[#133f85] text-sm font-medium border-b border-[#e8f8fb]"
+              >
+                {l}
+              </a>
             ))}
-            <a href="#pricing" className="block mt-4 py-3 rounded-xl bg-gradient-to-r from-[#133f85] to-[#3dcdc5] text-white text-sm font-bold text-center shadow-lg">
+
+            <a
+              href="#pricing"
+              className="block mt-4 py-3 rounded-xl bg-gradient-to-r from-[#133f85] to-[#3dcdc5] text-white text-sm font-bold text-center shadow-lg"
+            >
               Start Free Trial
             </a>
           </motion.div>
@@ -1190,7 +1261,6 @@ function Navbar() {
     </motion.nav>
   );
 }
-
 // ─── Hero Section with Updated Dashboard Colors ──────────────────────────────
 function HeroSection() {
   const { scrollY } = useScroll();
@@ -1951,33 +2021,84 @@ function Footer() {
   return (
     <footer className="bg-[#133f85] py-10 sm:py-14 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
+
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 mb-8 sm:mb-12">
+          
+          {/* 🔥 LOGO SECTION */}
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center shadow-lg" style={{ background: "linear-gradient(135deg,#3dcdc5,#ffffff60)" }}><span className="text-white font-black text-xs sm:text-sm">W</span></div>
-              <span className="font-black text-base sm:text-lg text-white">WYN <span className="text-[#3dcdc5]">Reach</span></span>
+            <div className="flex items-center gap-3 mb-4">
+
+              {/* ✅ IMAGE LOGO */}
+              <img
+                src={image}
+                alt="WYN Logo"
+                className="h-14 sm:h-16 w-auto object-contain"
+              />
+
+              {/* ✅ TEXT */}
+              <span className="font-black text-lg sm:text-xl text-white">
+                WYN <span className="text-[#3dcdc5]">Reach</span>
+              </span>
             </div>
-            <p className="text-white/60 text-xs sm:text-sm leading-relaxed mb-4">Automate your WhatsApp & Email communication to convert more customers with less effort.</p>
-            <a href="mailto:hello@wynsync.tech" className="text-[#3dcdc5] text-xs sm:text-sm hover:underline">hello@wynsync.tech</a>
+
+            <p className="text-white/60 text-xs sm:text-sm leading-relaxed mb-4">
+              Automate your WhatsApp & Email communication to convert more customers with less effort.
+            </p>
+
+            <a
+              href="mailto:hello@wynsync.tech"
+              className="text-[#3dcdc5] text-xs sm:text-sm hover:underline"
+            >
+              hello@wynsync.tech
+            </a>
           </div>
+
+          {/* 🔗 LINKS */}
           {[
             { title: "Product", links: ["Features", "Pricing", "How It Works", "Use Cases"] },
             { title: "Company", links: ["About", "Contact", "Blog", "Careers"] },
             { title: "Legal", links: ["Privacy Policy", "Terms & Conditions", "Refund Policy", "Cookie Policy"] },
           ].map(col => (
             <div key={col.title}>
-              <h4 className="text-white font-bold text-xs sm:text-sm mb-3 sm:mb-4">{col.title}</h4>
-              <div className="space-y-2 sm:space-y-2.5">{col.links.map(l => <a key={l} href="#" className="block text-white/50 text-xs sm:text-sm hover:text-white transition-colors">{l}</a>)}</div>
+              <h4 className="text-white font-bold text-xs sm:text-sm mb-3 sm:mb-4">
+                {col.title}
+              </h4>
+
+              <div className="space-y-2 sm:space-y-2.5">
+                {col.links.map(l => (
+                  <a
+                    key={l}
+                    href="#"
+                    className="block text-white/50 text-xs sm:text-sm hover:text-white transition-colors"
+                  >
+                    {l}
+                  </a>
+                ))}
+              </div>
             </div>
           ))}
         </div>
+
+        {/* 🔻 BOTTOM BAR */}
         <div className="border-t border-white/20 pt-6 sm:pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-white/40 text-[10px] sm:text-sm">© 2024 WYN Reach. All rights reserved. Part of WYN Sync ecosystem.</p>
+          
+          <p className="text-white/40 text-[10px] sm:text-sm">
+            © 2024 WYN Reach. All rights reserved. Part of WYN Sync ecosystem.
+          </p>
+
           <div className="flex gap-3">
             {["💬", "📧", "🐦", "💼"].map((icon, i) => (
-              <motion.a key={i} href="#" whileHover={{ scale: 1.2 }} className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-sm sm:text-base hover:bg-white/20 transition-colors">{icon}</motion.a>
+              <motion.a
+                key={i}
+                href="#"
+                whileHover={{ scale: 1.2 }}
+                className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-sm sm:text-base hover:bg-white/20 transition-colors"
+              >
+                {icon}
+              </motion.a>
             ))}
           </div>
+
         </div>
       </div>
     </footer>
