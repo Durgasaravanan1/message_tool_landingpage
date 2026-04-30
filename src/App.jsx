@@ -1,14 +1,16 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import WynReachLanding from './Landing';
-import Checkout from './Checkout'; // your combined checkout + thank you component
-import CheckoutPage from './Checkout';
+// import WynReachLanding from './Landing';
+// import Checkout from './Checkout'; // your combined checkout + thank you component
+// import CheckoutPage from './Checkout';
+import Mech from './MechanicalCourse';
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<WynReachLanding />} />
-        <Route path="/checkout" element={<CheckoutPage/>} />
+        {/* <Route path="/" element={<WynReachLanding />} />
+        <Route path="/checkout" element={<CheckoutPage/>} /> */}
+        <Route path='/mechcourse' element={<Mech/>}/>
         {/* Add any other routes here, e.g., /dashboard, /pricing, etc. */}
       </Routes>
     </Router>
