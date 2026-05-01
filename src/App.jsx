@@ -10,7 +10,7 @@ function App() {
       <Routes>
         {/* <Route path="/" element={<WynReachLanding />} />
         <Route path="/checkout" element={<CheckoutPage/>} /> */}
-        <Route path='/mechcourse' element={<Mech/>}/>
+        <Route path='/' element={<Mech/>}/>
         {/* Add any other routes here, e.g., /dashboard, /pricing, etc. */}
       </Routes>
     </Router>
